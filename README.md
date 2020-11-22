@@ -46,11 +46,3 @@ will become
 | Name       | Type      | Description                                                                                                              |
 | :--------- | :-------- | :----------------------------------------------------------------------------------------------------------------------- |
 | `netflify` | `boolean` | (_default: false_) Set this to `true` if you want a `_header` file to be created that enables cache-control for netlify. |
-
-## TODOs
-
-- replace `@import` in `css` files
-- replace `import` in `js` files
-- maybe there is a service-worker that preloads stuff with inlined paths
-- add cache busting for other files like images
-- any other stuff I didn't thought about yet...

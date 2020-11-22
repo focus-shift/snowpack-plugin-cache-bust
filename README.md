@@ -52,6 +52,6 @@ will become
 }
 ```
 
-| Name       | Type      | Description                                                                                                              |
-| :--------- | :-------- | :----------------------------------------------------------------------------------------------------------------------- |
-| `netflify` | `boolean` | (_default: false_) Set this to `true` if you want a `_header` file to be created that enables cache-control for netlify. |
+| Name       | Type      | Description                                                                                                                                                                                         |
+| :--------- | :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `netflify` | `boolean` | (_default: false_) Set this to `true` if you want a `_header` file to be created that enables [cache-control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) for netlify. |

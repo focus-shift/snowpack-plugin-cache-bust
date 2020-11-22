@@ -20,9 +20,7 @@ Currently there is no published artifact in the npm registry. You have to add th
 // snowpack.config.js
 {
   plugins: [
-    ["snowpack-plugin-cache-bust", {
-      netflify: false
-    }]
+    "snowpack-plugin-cache-bust"
   ],
 }
 ```
@@ -42,6 +40,17 @@ will become
 ```
 
 ### Plugin options
+
+`snowpack-plugin-cache-bust` can be configured with following options:
+
+```js
+// snowpack.config.js
+{
+  plugins: [
+    ["snowpack-plugin-cache-bust", options]
+  ],
+}
+```
 
 | Name       | Type      | Description                                                                                                              |
 | :--------- | :-------- | :----------------------------------------------------------------------------------------------------------------------- |

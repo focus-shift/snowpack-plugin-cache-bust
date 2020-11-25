@@ -7,6 +7,7 @@ const {
   isPreloadScript,
   isPreloadStyle,
   isStylesheet,
+  isScript,
 } = require("./html");
 const { setIfAbsent } = require("./map");
 const { createNetlifyHeaders } = require("./netlify");
@@ -32,7 +33,7 @@ module.exports = function (snowpackConfig, pluginOptions) {
       const mutators = [
         {
           // mutate the `src` attribute of `script` elements
-          test: (node) => node.tagName === "script",
+          test: (node) => isScript(node),
           mutate(node) {
             const attr = node.attrs.find((attr) => attr.name === "src");
             attr.value = getHashedValue(attr);

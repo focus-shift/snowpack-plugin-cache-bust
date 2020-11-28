@@ -50,25 +50,27 @@ module.exports = function (snowpackConfig, pluginOptions) {
         },
       ];
 
-      for (const file of htmlFiles) {
-        const fileTmp = `${file}.tmp`;
-        fs.writeFileSync(fileTmp, "", "utf8");
+      function transformHtmlFile(file) {
+        return new Promise((resolve) => {
+          const fileTmp = `${file}.tmp`;
+          fs.writeFileSync(fileTmp, "", "utf8");
 
-        const writable = fs.createWriteStream(fileTmp);
-        const readable = fs.createReadStream(file);
-        readable.setEncoding("utf8");
+          const rewriter = createRewritingStream({ mutators });
 
-        const rewriter = createRewritingStream({ mutators });
-
-        readable.pipe(rewriter).pipe(writable);
-
-        await new Promise((resolve) => {
           rewriter.on("end", () => {
             fs.renameSync(fileTmp, file);
             resolve();
           });
+
+          const writable = fs.createWriteStream(fileTmp);
+          const readable = fs.createReadStream(file);
+          readable.setEncoding("utf8");
+
+          readable.pipe(rewriter).pipe(writable);
         });
       }
+
+      await Promise.allSettled(htmlFiles.map(transformHtmlFile));
 
       for (let asset of handledAssets.values()) {
         fs.renameSync(asset.filepath, asset.filepathHashed);

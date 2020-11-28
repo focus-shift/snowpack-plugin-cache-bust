@@ -16,7 +16,7 @@ const findFiles = promisify(glob);
 
 module.exports = function (snowpackConfig, pluginOptions) {
   return {
-    name: "snowpack-plugin-cache-busting",
+    name: "snowpack-plugin-cache-bust",
 
     async optimize({ buildDirectory }) {
       const handledAssets = new Map();

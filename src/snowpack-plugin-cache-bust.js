@@ -22,13 +22,6 @@ module.exports = function (snowpackConfig, pluginOptions) {
       const handledAssets = new Map();
       const htmlFiles = await findFiles(`${buildDirectory}/**/*.html`);
 
-      function getHashedValue(attr) {
-        const hashed = setIfAbsent(handledAssets, attr.value, (key) =>
-          hashFile(`${buildDirectory}${key}`),
-        );
-        return hashed.filepathHashed.substring(buildDirectory.length);
-      }
-
       // transform DOM nodes
       const transformers = [
         {
@@ -49,6 +42,13 @@ module.exports = function (snowpackConfig, pluginOptions) {
           },
         },
       ];
+
+      function getHashedValue(attr) {
+        const hashed = setIfAbsent(handledAssets, attr.value, (key) =>
+          hashFile(`${buildDirectory}${key}`),
+        );
+        return hashed.filepathHashed.substring(buildDirectory.length);
+      }
 
       function transformHtmlFile(file) {
         return new Promise((resolve) => {

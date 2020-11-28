@@ -51,7 +51,7 @@ function isPreloadScript(node) {
 /**
  * creates a reading stream to transform html element tags.
  */
-function createRewritingStream({ mutators }) {
+function createRewritingStream({ transformers }) {
   const rewriter = new RewritingStream();
 
   for (let eventName of ["endTag", "comment", "text", "doctype"]) {
@@ -61,9 +61,9 @@ function createRewritingStream({ mutators }) {
   }
 
   rewriter.on("startTag", (node) => {
-    for (let mutator of mutators) {
-      if (mutator.test(node)) {
-        mutator.mutate(node);
+    for (let transformer of transformers) {
+      if (transformer.test(node)) {
+        transformer.transform(node);
       }
     }
     rewriter.emitStartTag(node);

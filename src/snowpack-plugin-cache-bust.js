@@ -29,21 +29,21 @@ module.exports = function (snowpackConfig, pluginOptions) {
         return hashed.filepathHashed.substring(buildDirectory.length);
       }
 
-      // mutate DOM nodes
-      const mutators = [
+      // transform DOM nodes
+      const transformers = [
         {
-          // mutate the `src` attribute of `script` elements
+          // transform the `src` attribute of `script` elements
           test: (node) => isScript(node),
-          mutate(node) {
+          transform(node) {
             const attr = node.attrs.find((attr) => attr.name === "src");
             attr.value = getHashedValue(attr);
           },
         },
         {
-          // mutate the `href` attribute of `link` elements
+          // transform the `href` attribute of `link` elements
           test: (node) =>
             isStylesheet(node) || isPreloadStyle(node) || isPreloadScript(node),
-          mutate(node) {
+          transform(node) {
             const attr = node.attrs.find((attr) => attr.name === "href");
             attr.value = getHashedValue(attr);
           },
@@ -55,7 +55,7 @@ module.exports = function (snowpackConfig, pluginOptions) {
           const fileTmp = `${file}.tmp`;
           fs.writeFileSync(fileTmp, "", "utf8");
 
-          const rewriter = createRewritingStream({ mutators });
+          const rewriter = createRewritingStream({ transformers });
 
           rewriter.on("end", () => {
             fs.renameSync(fileTmp, file);

@@ -20,6 +20,7 @@ module.exports = function (snowpackConfig, pluginOptions) {
 
     async optimize({ buildDirectory }) {
       const handledAssets = new Map();
+      const notFoundAssets = new Set();
       const htmlFiles = await findFiles(`${buildDirectory}/**/*.html`);
 
       // transform DOM nodes
@@ -29,7 +30,11 @@ module.exports = function (snowpackConfig, pluginOptions) {
           test: (node) => isScript(node),
           transform(node) {
             const attr = node.attrs.find((attr) => attr.name === "src");
-            attr.value = getHashedValue(attr);
+            try {
+              attr.value = getHashedValue(attr);
+            } catch (error) {
+              notFoundAssets.add(attr.value);
+            }
           },
         },
         {
@@ -38,7 +43,11 @@ module.exports = function (snowpackConfig, pluginOptions) {
             isStylesheet(node) || isPreloadStyle(node) || isPreloadScript(node),
           transform(node) {
             const attr = node.attrs.find((attr) => attr.name === "href");
-            attr.value = getHashedValue(attr);
+            try {
+              attr.value = getHashedValue(attr);
+            } catch (error) {
+              notFoundAssets.add(attr.value);
+            }
           },
         },
       ];
@@ -71,6 +80,15 @@ module.exports = function (snowpackConfig, pluginOptions) {
       }
 
       await Promise.allSettled(htmlFiles.map(transformHtmlFile));
+
+      if (notFoundAssets.size > 0) {
+        console.log(
+          "Could not hash following assets since they are not in the buildDirectory:",
+        );
+        for (let notFoundAsset of notFoundAssets) {
+          console.log(`  - ${notFoundAsset}`);
+        }
+      }
 
       for (let asset of handledAssets.values()) {
         fs.renameSync(asset.filepath, asset.filepathHashed);

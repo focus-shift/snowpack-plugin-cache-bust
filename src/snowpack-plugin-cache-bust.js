@@ -66,14 +66,14 @@ module.exports = function (snowpackConfig, pluginOptions) {
 
           const rewriter = createRewritingStream({ transformers });
 
-          rewriter.on("end", () => {
-            fs.renameSync(fileTmp, file);
-            resolve();
-          });
-
           const writable = fs.createWriteStream(fileTmp);
           const readable = fs.createReadStream(file);
           readable.setEncoding("utf8");
+
+          writable.on("close", () => {
+            fs.renameSync(fileTmp, file);
+            resolve();
+          });
 
           readable.pipe(rewriter).pipe(writable);
         });

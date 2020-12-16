@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "snowpack-plugin-cache-bust",
+  "version": "0.0.1",
   "author": "Benjamin Seber <benjamin.seber@focus-shift.de> (https://www.focus-shift.de)",
   "description": "This [snowpack](https://www.snowpack.dev) plugin adds a content hash to your referenced scripts and stylesheets in html files. The hash is created on `optimize` command. So this won't interfere developing with watch mode.",
   "license": "MIT",

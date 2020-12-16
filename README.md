@@ -11,7 +11,7 @@ Currently there is no published artifact in the npm registry. You have to add th
 // package.json
 {
   "devDependencies": {
-    "snowpack-plugin-cache-bust": "https://github.com/focus-shift/snowpack-plugin-cache-bust.git"
+    "snowpack-plugin-cache-bust": "https://github.com/focus-shift/snowpack-plugin-cache-bust.git#<VERSION_TAG>"
   }
 }
 ```

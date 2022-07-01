@@ -22,7 +22,7 @@
     "parse5-html-rewriting-stream": "6.0.1"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
+    "eslint": "8.18.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
     "prettier": "2.4.1"

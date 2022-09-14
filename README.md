@@ -1,3 +1,8 @@
+> **Update (April 20, 2022):** Snowpack is no longer actively maintained and is not recommended for new projects.
+>
+> Check out [Vite](https://vitejs.dev/) for a well-maintained Snowpack alternative.  
+> See also: [esbuild](https://esbuild.github.io/), [parcel](https://parceljs.org/)
+
 # snowpack-plugin-cache-bust
 
 This [snowpack](https://www.snowpack.dev) plugin adds a content hash to your referenced scripts and stylesheets in html files.

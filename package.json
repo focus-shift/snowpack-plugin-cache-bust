@@ -19,7 +19,7 @@
   "dependencies": {
     "glob": "7.2.0",
     "hasha": "5.2.2",
-    "parse5-html-rewriting-stream": "6.0.1"
+    "parse5-html-rewriting-stream": "7.0.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",
